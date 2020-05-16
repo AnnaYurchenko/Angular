@@ -1,21 +1,13 @@
-<div *ngIf="selectedHero">
+<!-- transfer the object from parent component to dochernyaya component-->
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>
 
-<h2>{{selectedHero.name | uppercase}} Details</h2>
- <div><span>id: </span>{{selectedHero.id}}</div> 
-<div><span>name: </span>{{selectedHero.name}}</div> 
-<div> 
-  <label>name: 
-    <input [(ngModel)]="selectedHero.name" placeholder="name"/> 
-</label> 
-</div>
-
-</div>
-
-  <h2>My Heroes</h2> 
+<h2>Biergarten</h2> 
 <ul class="heroes"> 
-  <li *ngFor="let listHero of heroes"
-      [class.selected]="listHero === selectedHero"
-      (click)="onSelect(listHero)"> 
-  <span class="badge">{{listHero.id}}</span> {{listHero.name}} 
+<!--  *ngFor like "for each" in java-->
+  <li *ngFor="let currentHero of heroes"
+      (click)="onSelect(currentHero)"
+  [class.selected]="isSelected(currentHero)">
+  <span class="badge">{{currentHero.id}}</span> {{currentHero.name}} 
 </li> 
 </ul> 
+

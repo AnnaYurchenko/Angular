@@ -4,19 +4,25 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import {FormsModule} from '@angular/forms';
+import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+import {HeroService} from './service/hero.service';
+import { MessagesComponent } from './messages/messages.component';
 
 
-// Each project consist of modelus. The main modules
+// Each project consist of modules. The main modules
 @NgModule({
   declarations: [
-    AppComponent,
-    HeroesComponent // will be available in other components
+    AppComponent, // if the Component didnt indicated than can't be used in project
+    HeroesComponent,
+    HeroDetailComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
     FormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [HeroService], // available not for all project but for the needed component
+  bootstrap: [AppComponent] // connection with the main component
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,13 +1,13 @@
 <!-- transfer the object from parent component to dochernyaya component-->
-<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+<!--<app-hero-detail [hero]="selectedHero"></app-hero-detail>-->
 
 <h2>Biergarten</h2> 
 <ul class="heroes"> 
-<!--  *ngFor like "for each" in java-->
-  <li *ngFor="let currentHero of heroes"
-      (click)="onSelect(currentHero)"
-  [class.selected]="isSelected(currentHero)">
+<!--  *ngFor like "for each" in java. li - is a hero items-->
+  <li *ngFor="let currentHero of heroes">
+    <a routerLink="/hero/{{currentHero.id}}">
   <span class="badge">{{currentHero.id}}</span> {{currentHero.name}} 
+    </a>
 </li> 
 </ul> 
 

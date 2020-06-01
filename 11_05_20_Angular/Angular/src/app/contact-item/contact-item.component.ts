@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Contact} from '../model/contact';
+import {ContactService} from '../service/contact.service';
+import {ContactEventService} from '../service/contact-event.service';
 
 @Component({
   selector: 'app-contact-item',
@@ -11,24 +13,18 @@ export class ContactItemComponent implements OnInit {
   @Input()
   contact: Contact;
 
-  @Output()
-  // we create an Event that can send Contacts
-  edit: EventEmitter<Contact> = new EventEmitter();
-
-  @Output()
-  delete: EventEmitter<Contact> = new EventEmitter();
-
-  constructor() {
+  constructor(private contactService: ContactService,
+              private contactEventService: ContactEventService) {
   }
 
   ngOnInit(): void {
   }
 
   onClickEdit() {
-    this.edit.emit(this.contact);
+    this.contactEventService.emitEditContact(this.contact);
   }
 
   onClickDelete() {
-    this.delete.emit(this.contact);
+    this.contactService.remove(this.contact);
   }
 }

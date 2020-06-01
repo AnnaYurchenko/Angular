@@ -10,25 +10,20 @@ import {Contact} from './model/contact';
 })
 export class AppComponent implements OnInit {
   title = 'Contacts';
-  contacts: Contact[];
+  // contacts: Contact[];
   // creates this.contactService
   contactToEdit: Contact;
-  contactToCancel: Contact;
 
-  constructor(private contactService: ContactService) {
+  constructor(public contactService: ContactService) {
   }
 
   ngOnInit(): void {
-     this.contactService.getAll()
-      .subscribe(value => this.contacts = value);
+  //   this.contactService.getAll()
+  //   .subscribe(value => this.contacts = value);
   }
 
   // listener the moment when we tap on pencil of any item
   onEditItem($event: Contact) {
     this.contactToEdit = Object.assign([], $event); // object's clone
-  }
-
-  onCancelItem($event: Contact) {
-    this.contactToCancel = $event;
   }
 }

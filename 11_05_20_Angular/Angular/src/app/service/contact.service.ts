@@ -1,33 +1,42 @@
 import { Injectable } from '@angular/core';
 import {Contact} from '../model/contact';
 import {Observable, of} from 'rxjs';
-import {CONTACTS} from './contacts-mock';
+import {HttpClient} from '@angular/common/http';
 
 // object of service is available for all application
 @Injectable()
 export class ContactService {
+  private host = 'http://localhost:8090/';
 
-  constructor() {
+  contacts: Observable<Contact[]>;
+
+  constructor(private httpClient: HttpClient) {
   }
 
   add(contact: Contact): void {
-    contact.id = CONTACTS.length + 1;
-    CONTACTS.push(contact);
+    this.httpClient.post(`${this.host}contact`, contact)
+      .subscribe(value => this.reloadContacts());
   }
 
   getAll(): Observable<Contact[]> {
-    return of(CONTACTS);
+    if (!this.contacts) {
+      this.reloadContacts();
+    }
+    return this.contacts;
+  }
+
+  private reloadContacts() {
+    this.contacts = this.httpClient.get<Contact[]>(`${this.host}contact`);
   }
 
   edit(contact: Contact) {
     // ContactToEdit is reference variable (const). Like final in Java.
-    const contactToEdit = CONTACTS.find(value => value.id === contact.id);
-    Object.assign(contactToEdit, contact); // override the properties from one Object to another
+   // const contactToEdit = CONTACTS.find(value => value.id === contact.id);
+   // Object.assign(contactToEdit, contact); // override the properties from one Object to another
   }
 
-  cancel(contact: Contact) {
-      const contactToCancel = CONTACTS.find(value => value.id === contact.id);
-      Object.assign(contactToCancel, contact);
-    }
-
+  remove(contact: Contact) {
+  // const index = CONTACTS.findIndex(value => value.id === contact.id);
+  // CONTACTS.splice(index, 1); // delete 1 element from an array
+  }
 }
